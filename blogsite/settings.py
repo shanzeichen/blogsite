@@ -25,12 +25,13 @@ SECRET_KEY = 'u#u5!zj&ma7=cld$9iv6x%w^yt*ezqrx7dm5u%@xzqq)1&s7he'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','192.168.191.3']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'testApp.apps.TestappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Chongqing'
 
 USE_I18N = True
 

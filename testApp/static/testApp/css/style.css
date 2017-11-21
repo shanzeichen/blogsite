@@ -1,0 +1,11 @@
+body {
+    color: white;
+    background: white url("../images/background.jpg") right bottom;
+}
+.container {
+    padding:20px 30px 20px 30px;
+}
+.jumbotron {
+    color:black;
+    background: white url("../images/background1.gif") right bottom;
+}
