@@ -5,14 +5,30 @@
 
 {% block stylesheet %}
     <link type="text/css" rel="stylesheet" href="{% static 'testApp/css/style.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'testApp/css/checkin.css' %}"/>
 {% endblock %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">现在注册</a></p>
+
+
+    <div class="row">
+        <div class="jumbotron col-lg-8">
+            <h1>Jumbotron heading</h1>
+            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p><a class="btn btn-lg btn-success" href="#" role="button">现在注册</a></p>
+        </div>
+        <div class="col-lg-4">
+            <div class="mask">
+                <div class="modal">
+                    <a href="#" class="closeBtn">×</a>
+                    <h1 class="title_h1 clearfix"><span></span><em>已签到</em> <i>您已签到2天</i></h1>
+                    <h2 class="title_h2">您获得现金<span>0.88元</span></h2>
+                </div>
+            </div>
+            <div class="checkin"></div>
+        </div>
     </div>
+
 
     <div class="row marketing">
         <div class="col-lg-6">
@@ -42,4 +58,130 @@
     <footer class="footer">
         <p>&copy; 2017 Personal, Blog.</p>
     </footer>
+
+    <script>
+	;
+	(function($) {
+		var Checkin = function(ele, options) {
+			this.ele = ele;
+			this.opt = options;
+			this.defaults = {
+				width: 310,
+				height: 'auto',
+				background: '#f90',
+				radius: 10,
+				color: '#fff',
+				padding: 15,
+				dateArray: [1, 2, 4, 6], // 假设已签到的天数+1
+			};
+			this.obj = $.extend({}, this.defaults, this.opt);
+		}
+		Checkin.prototype.init = function() {
+			var _self = this.ele,
+				html = '',
+				myDate = new Date(),
+				year = myDate.getFullYear(),
+				month = myDate.getMonth(),
+				day = myDate.getDate(),
+				weekText = ['日', '一', '二', '三', '四', '五', '六'];
+			_self.css({
+				width: this.obj.width + 'px',
+				height: this.obj.height,
+				background: this.obj.background,
+				borderRadius: this.obj.radius,
+				color: this.obj.color,
+				padding: this.obj.padding
+			}).append("<div class='title'><p>" + year + '年' + (month + 1) + '月' + day + '日' + "</p><a class=\'checkBtn\' href=\"javascript:;\">签到</a></div>");
+			$("<ul class='week clearfix'></ul><ul class='calendarList clearfix'></ul>").appendTo(_self);
+			for (var i = 0; i < 7; i++) {
+				_self.find(".week").append("<li>" + weekText[i] + "</li>")
+			};
+			for (var i = 0; i < 42; i++) {
+				html += "<li></li>"
+			};
+			_self.find(".calendarList").append(html);
+			var $li = _self.find(".calendarList").find("li");
+			_self.find(".week li").css({
+				width: (_self.width() / 7) + 'px',
+				height: 40 + 'px',
+				borderRight: '1px solid #f90',
+				boxSizing: 'border-box',
+				background: '#b25d06'
+			});
+			$li.css({
+				width: (_self.width() / 7) + 'px',
+				height: 40 + 'px',
+				borderRight: '1px solid #f90',
+				borderBottom: '1px solid #f90',
+				boxSizing: 'border-box',
+				color: "#b25d06"
+			});
+			_self.find(".calendarList").find("li:nth-child(7n)").css('borderRight', 'none');
+			_self.find(".week li:nth-child(7n)").css('borderRight', 'none');
+			var monthFirst = new Date(year, month, 1).getDay();
+			var d = new Date(year, (month + 1), 0)
+			var totalDay = d.getDate(); //获取当前月的天数
+			for (var i = 0; i < totalDay; i++) {
+				$li.eq(i + monthFirst).html(i + 1);
+				$li.eq(i + monthFirst).addClass('data' + (i + 1))
+				if (isArray(this.obj.dateArray)) {
+					for (var j = 0; j < this.obj.dateArray.length; j++) {
+						if (i == this.obj.dateArray[j]) {
+							// 假设已经签到的
+							$li.eq(i + monthFirst).addClass('checked');
+						}
+					}
+				}
+			}
+			//$li.eq(monthFirst+day-1).css('background','#f7ca8e')
+			_self.find($(".data" + day)).addClass('able-qiandao');
+		}
+		var isChecked = false;
+		Checkin.prototype.events = function() {
+			var _self = this.ele;
+			var $li = _self.find(".calendarList").find("li");
+			$li.on('click', function(event) {
+				event.preventDefault();
+				/* Act on the event */
+				if ($(this).hasClass('able-qiandao')) {
+					$(this).addClass('checked');
+					modal(_self);
+					isChecked = true;
+				}
+			});
+			var checkBtn = _self.find(".checkBtn");
+			checkBtn.click(function(event) {
+				modal(_self);
+				_self.find('.able-qiandao').addClass('checked');
+				isChecked = true;
+			});
+		}
+		var modal = function(e) {
+			var mask = e.parents().find(".mask");
+			var close = e.parents().find(".closeBtn");
+			if (mask && !isChecked) {
+				mask.addClass('trf');
+			} else {
+				return
+			};
+			close.click(function(event) {
+				event.preventDefault();
+				mask.removeClass('trf')
+			});
+			e.parents().find('.checkBtn').text("已签到");
+		}
+		$.fn.Checkin = function(options) {
+			var checkin = new Checkin(this, options);
+			var obj = [checkin.init(), checkin.events()]
+			return obj
+		}
+		var isArray = function(arg) {
+			return Object.prototype.toString.call(arg) === '[object Array]';
+		};
+	})(jQuery);
+	// 插件调用
+	$(".checkin").Checkin();
+	// 元素居中显示，与插件无关，根本自己需要修改；
+	//$(".checkin").css('marginTop',parseInt(($(window).innerHeight()-$(".checkin").outerHeight())/2)+'px');
+	</script>
 {% endblock %}
