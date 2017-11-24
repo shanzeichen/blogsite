@@ -1,3 +1,7 @@
+*{
+    margin: 0;
+    padding:0;
+}
 body {
     color: white;
     background: white url("../images/background.jpg") right bottom;
@@ -8,4 +12,14 @@ body {
 .jumbotron {
     color:black;
     background: white url("../images/background1.gif") right bottom;
+}
+.article {
+    margin-top: 40px;
+}
+.headpic {
+    width:20px;
+    height:20px;
+}
+.article-tag {
+    font-weight: bold;
 }

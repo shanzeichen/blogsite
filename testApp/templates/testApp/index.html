@@ -31,26 +31,24 @@
 
 
     <div class="row marketing">
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+        <div class="col-lg-8">
+            <div class="article">
+                <h3>90后小伙给宠物送外卖 年入30万</h3>
+                <p>中新网消息，“很多养宠物的人对自己的宠物猫和宠物狗都特别好。”蒋鹏飞在厨房边给宠物犬备餐边说，“但其实大部分人都不知道如何做才是真正对它们好，只是给它们买贵的东西。”</p>
+                <div class="article-info">
+                    <img class='headpic' src="{% static 'testApp/images/fruit1.png' %}">&nbsp;&nbsp;作者：Liyang&nbsp;&nbsp;
+                    11月24日 14:20&nbsp;&nbsp;<span class="label label-default">社会热点</span>
+                </div>
+            </div>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            <div class="article">
+                <h3>为什么有些大公司技术弱爆了？</h3>
+                <p>新手经常会有这样的想法——「这代码怎么这么烂？写的人干什么吃的？怎么能这样？为什么不按照书上说的做？」，这很正常，大家都年轻过，经历过这种阶段，我懂你心里的想法，所以也愿意详细地向你解释，这一切发生的原因是什么。</p>
+                <div class="article-info">
+                    <img class='headpic' src="{% static 'testApp/images/fruit1.png' %}">&nbsp;&nbsp;作者：Liyang&nbsp;&nbsp;
+                    11月22日 18:31&nbsp;&nbsp;<span class="label label-default">程序人生</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -60,11 +58,10 @@
     </footer>
 
     <script>
-	;
 	(function($) {
 		var Checkin = function(ele, options) {
-			this.ele = ele;
-			this.opt = options;
+			this.ele = ele
+			this.opt = options
 			this.defaults = {
 				width: 310,
 				height: 'auto',
@@ -145,13 +142,13 @@
 				/* Act on the event */
 				if ($(this).hasClass('able-qiandao')) {
 					$(this).addClass('checked');
-					modal(_self);
+					//modal(_self);
 					isChecked = true;
 				}
 			});
 			var checkBtn = _self.find(".checkBtn");
 			checkBtn.click(function(event) {
-				modal(_self);
+				//modal(_self);
 				_self.find('.able-qiandao').addClass('checked');
 				isChecked = true;
 			});

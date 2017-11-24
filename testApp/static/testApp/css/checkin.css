@@ -1,4 +1,4 @@
-ul,li{list-style:none;-webkit-padding-start: 0px;}
+ul,li{list-style:none;}
 .checkin{margin: auto auto auto auto; }
 .clear {clear:both; height:0; overflow:hidden; display:block; line-height:0}
 .clearfix:after {clear:both;font-size:0; height:0; display:block; visibility:hidden; content:" "; line-height:0}
